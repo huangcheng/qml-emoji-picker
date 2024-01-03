@@ -11,6 +11,15 @@ MouseArea {
 
     property string placeholder: 'Search'
 
+    Behavior on width {
+        PropertyAnimation {
+            property: "width"
+            duration: 200
+
+            easing.type: Easing.Linear
+        }
+    }
+
     Rectangle {
         id: container
 
@@ -51,13 +60,6 @@ MouseArea {
             Transition {
                 ColorAnimation {
                     duration: 500
-                }
-            },
-
-            Transition {
-                NumberAnimation {
-                    properties: "width"
-                    duration: 400
                 }
             }
         ]

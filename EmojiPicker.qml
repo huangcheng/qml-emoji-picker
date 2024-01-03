@@ -41,14 +41,6 @@ Rectangle {
 
 
     /*!
-        \qmlproperty string text
-
-        Text to be searched.
-    */
-    property alias text: search.text
-
-
-    /*!
         \qmlproperty string placeholder
 
         Placeholder text for the search.
@@ -113,7 +105,7 @@ Rectangle {
 
                 color: colorScheme.searchInputBg
 
-                width: parent.width
+                width: parent.width - skinTonePicker.width
                 height: parent.height
 
                 borderColor: colorScheme.highlight
@@ -122,6 +114,15 @@ Rectangle {
 
                 anchors.top: parent.top
                 anchors.left: parent.left
+            }
+
+            SkinTonePicker {
+                id: skinTonePicker
+
+                indicatorBorderColor: colorScheme.highlight
+
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
             }
         }
     }

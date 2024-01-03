@@ -12,6 +12,7 @@ qt_add_qml_module(EmojiPicker
         themes/Light.qml
 
         components/Search.qml
+        components/SkinTonePicker.qml
 
         EmojiPicker.qml
 
