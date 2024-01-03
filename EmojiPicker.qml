@@ -5,14 +5,72 @@ import "./themes"
 
 import "./components"
 
+
+/*!
+    \qmltype EmojiPicker
+    \inherits Rectangle
+    \brief A EmojiPicker Component.
+
+    \qml
+        EmojiPicker {
+            width: 350
+            height: 450
+
+            theme: 'light'
+
+            onTextChanged: {
+                console.log(text)
+            }
+        }
+    \endqml
+*/
 Rectangle {
     id: root
 
+
+    /*!
+        \qmlproperty string theme
+
+        Theme for the component.
+
+        The theme can be one of:
+        \value 'light'       The default
+        \value 'dark'
+    */
     property string theme: 'light'
+
+
+    /*!
+        \qmlproperty string text
+
+        Text to be searched.
+    */
+    property alias text: search.text
+
+
+    /*!
+        \qmlproperty string placeholder
+
+        Placeholder text for the search.
+    */
+    property alias placeholder: search.placeholder
 
     readonly property var colorScheme: theme === 'light' ? light : dark
 
+
+    /*!
+        \qmlproperty int width
+
+        Width of the component, default to 350.
+    */
     width: 350
+
+
+    /*!
+        \qmlproperty int height
+
+        Height of the component, default to 350.
+    */
     height: 450
 
     color: colorScheme.background
@@ -25,14 +83,9 @@ Rectangle {
     Light {
         id: light
     }
+
     Dark {
         id: dark
-    }
-
-    SystemPalette {
-        id: palette
-
-        colorGroup: SystemPalette.Active
     }
 
     Rectangle {
@@ -41,10 +94,14 @@ Rectangle {
 
         anchors.fill: parent
 
+        color: 'transparent'
+
         // Header
         Rectangle {
             width: parent.width - 20
             height: 40
+
+            color: 'transparent'
 
             anchors.left: parent.left
             anchors.top: parent.top
@@ -52,6 +109,8 @@ Rectangle {
             anchors.rightMargin: 10
 
             Search {
+                id: search
+
                 color: colorScheme.searchInputBg
 
                 width: parent.width

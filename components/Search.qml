@@ -5,6 +5,7 @@ MouseArea {
     property alias textColor: input.color
     property alias text: input.text
 
+    property string theme: 'light'
     property string borderColor: 'transparent'
     property string hoverColor: 'transparent'
 
@@ -35,6 +36,7 @@ MouseArea {
                     border.color: borderColor
                 }
             },
+
             State {
                 when: !input.focus
 
@@ -45,11 +47,20 @@ MouseArea {
             }
         ]
 
-        transitions: Transition {
-            ColorAnimation {
-                duration: 500
+        transitions: [
+            Transition {
+                ColorAnimation {
+                    duration: 500
+                }
+            },
+
+            Transition {
+                NumberAnimation {
+                    properties: "width"
+                    duration: 400
+                }
             }
-        }
+        ]
 
         Image {
             id: magnifier
@@ -59,7 +70,9 @@ MouseArea {
             width: 20
             height: 20
 
-            sourceClipRect: Qt.rect(0, 0, 20, 20)
+            sourceClipRect: theme === 'light' ? Qt.rect(0, 0, 20,
+                                                        20) : Qt.rect(0, 20,
+                                                                      20, 20)
 
             anchors.left: parent.left
             anchors.leftMargin: 10
@@ -97,7 +110,7 @@ MouseArea {
 
             hoverEnabled: true
 
-            onClicked: input.text = ''
+            onClicked: input.clear()
 
             states: State {
                 when: input.text.length > 0
@@ -132,9 +145,7 @@ MouseArea {
 
                     source: 'qrc:/cheng.im/EmojiPicker/images/times.svg'
 
-                    sourceClipRect: clear.containsMouse ? Qt.rect(0, 20, 20,
-                                                                  20) : Qt.rect(
-                                                              0, 0, 20, 20)
+                    sourceClipRect: !clear.containsMouse ? (theme === 'light' ? Qt.rect(0, 0, 20, 20) : Qt.rect(0, 40, 20, 20)) : (theme === 'light' ? Qt.rect(0, 20, 20, 20) : Qt.rect(0, 60, 20, 20))
 
                     anchors.centerIn: parent
                 }

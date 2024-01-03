@@ -1,0 +1,27 @@
+project = EmojiPicker
+
+sourcedirs = .
+headerdirs = .
+imagedirs = .
+
+HTML.templatedir = .
+
+HTML.stylesheets = docs/style/offline.css
+
+depends += \
+    qtquick
+
+sources.fileextensions = "*.qml"
+
+outputdir = ./public/
+
+outputformats = HTML
+
+HTML.headerstyles = \
+    "  <link rel=\"stylesheet\" type=\"text/css\" href=\"style/offline.css\" />\n"
+
+HTML.headerscripts =
+
+HTML.endheader = \
+    "</head>\n" \
+    "<body>\n"
