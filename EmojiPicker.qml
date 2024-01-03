@@ -1,13 +1,16 @@
 import QtQuick
+import QtQuick.Layouts
 
-import "./themes" as Themes
+import "./themes"
+
+import "./components"
 
 Rectangle {
     id: root
 
     property string theme: 'light'
 
-    readonly property var colorScheme: theme == 'light' ? light : dark
+    readonly property var colorScheme: theme === 'light' ? light : dark
 
     width: 350
     height: 450
@@ -19,10 +22,48 @@ Rectangle {
 
     radius: 8
 
-    Themes.Light {
+    Light {
         id: light
     }
-    Themes.Dark {
+    Dark {
         id: dark
+    }
+
+    SystemPalette {
+        id: palette
+
+        colorGroup: SystemPalette.Active
+    }
+
+    Rectangle {
+        anchors.topMargin: 15
+        anchors.bottomMargin: 15
+
+        anchors.fill: parent
+
+        // Header
+        Rectangle {
+            width: parent.width - 20
+            height: 40
+
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.leftMargin: 10
+            anchors.rightMargin: 10
+
+            Search {
+                color: colorScheme.searchInputBg
+
+                width: parent.width
+                height: parent.height
+
+                borderColor: colorScheme.highlight
+                textColor: colorScheme.text
+                hoverColor: colorScheme.hover
+
+                anchors.top: parent.top
+                anchors.left: parent.left
+            }
+        }
     }
 }

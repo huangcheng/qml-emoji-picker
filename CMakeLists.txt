@@ -5,12 +5,23 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
 qt_add_library(EmojiPicker STATIC)
 
 qt_add_qml_module(EmojiPicker
-        URI EmojiPicker
+    URI EmojiPicker
 
-        QML_FILES
+    QML_FILES
         themes/Dark.qml
         themes/Light.qml
-            EmojiPicker.qml
 
-        RESOURCE_PREFIX /cheng.im/qml
+        components/Search.qml
+
+        EmojiPicker.qml
+
+    RESOURCE_PREFIX /cheng.im/qml
+)
+
+qt_add_resources(EmojiPicker "images"
+    PREFIX /cheng.im/EmojiPicker
+
+    FILES
+        images/magnifier.svg
+        images/times.svg
 )
