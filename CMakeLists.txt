@@ -40,3 +40,10 @@ qt_add_resources(EmojiPicker "images"
         images/times.svg
         images/CategoryNav.svg
 )
+
+qt_add_resources(EmojiPicker "data"
+    PREFIX /cheng.im/EmojiPicker
+
+    FILES
+        data/emojis.json
+)
