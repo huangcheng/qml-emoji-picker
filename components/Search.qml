@@ -13,7 +13,7 @@ MouseArea {
 
     Behavior on width {
         PropertyAnimation {
-            property: "width"
+            property: 'width'
             duration: 200
 
             easing.type: Easing.Linear
@@ -37,7 +37,7 @@ MouseArea {
 
         states: [
             State {
-                name: "focused"
+                name: 'focused'
                 when: input.focus
 
                 PropertyChanges {
@@ -89,7 +89,6 @@ MouseArea {
             font.pixelSize: 14
 
             anchors.left: magnifier.right
-
             anchors.verticalCenter: parent.verticalCenter
 
             Text {
@@ -125,7 +124,7 @@ MouseArea {
 
             transitions: Transition {
                 NumberAnimation {
-                    properties: "opacity"
+                    properties: 'opacity'
                     duration: 200
                 }
             }

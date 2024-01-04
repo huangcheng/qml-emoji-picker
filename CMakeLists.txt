@@ -13,8 +13,12 @@ qt_add_qml_module(EmojiPicker
 
         components/Search.qml
         components/SkinTonePicker.qml
+        components/Navigation.qml
 
         EmojiPicker.qml
+
+    SOURCES
+        category.h
 
     RESOURCE_PREFIX /cheng.im/qml
 )
@@ -25,4 +29,5 @@ qt_add_resources(EmojiPicker "images"
     FILES
         images/magnifier.svg
         images/times.svg
+        images/CategoryNav.svg
 )

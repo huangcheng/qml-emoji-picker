@@ -17,21 +17,59 @@ import "./components"
             height: 450
 
             theme: 'light'
-
-            onTextChanged: {
-                console.log(text)
-            }
+            defaultSkinTone: 'neatral'
+            skinTonesDisabled: false
+            searchPlaceholder: 'Search'
+            searchDisabled: false
         }
     \endqml
 */
 Rectangle {
     id: root
 
+    readonly property var skinTones: {
+        "neutral": 0,
+        "1f3fb": 1,
+        "1f3fc": 2,
+        "1f3fd": 3,
+        "1f3fe": 4,
+        "1f3ff": 5
+    }
+
+    readonly property var categories: [{
+            "category": Category.SmileysPeople,
+            "name": 'Smileys & People'
+        }, {
+            "category": Category.AnimalsNature,
+            "name": "Animals & Nature"
+        }, {
+            "category": Category.FoodDrink,
+            "name": "Food & Drink"
+        }, {
+            "category": Category.TravelPlaces,
+            "name": "Travel & Places"
+        }, {
+            "category": Category.Activities,
+            "name": "Activities"
+        }, {
+            "category": Category.Objects,
+            "name": "Objects"
+        }, {
+            "category": Category.Symbols,
+            "name": "Symbols"
+        }, {
+            "category": Category.Flags,
+            "name": "Flags"
+        }]
+
+    readonly property int padding: 10
+    readonly property string transparent: 'transparent'
+
 
     /*!
         \qmlproperty string theme
 
-        Theme for the component.
+        Controls the theme of the picker.
 
         The theme can be one of:
         \value 'light'       The default
@@ -41,27 +79,61 @@ Rectangle {
 
 
     /*!
-        \qmlproperty string placeholder
+        \qmlproperty string defaultSkinTone
 
-        Placeholder text for the search.
+        Controls the default skin tone, default to \c {'neutral'}
+
+        The value can be one of:
+        \value 'neutral' ✋
+        \value '1f3fb'   ✋🏻
+        \value '1f3fc'   ✋🏼
+        \value '1f3fd'   ✋🏽
+        \value '1f3fe'   ✋🏾
+        \value '1f3ff'   ✋🏿
     */
-    property alias placeholder: search.placeholder
+    property string defaultSkinTone: 'neutral'
+
+
+    /*!
+        \qmlproperty bool skinTonesDisabled
+
+        Controls whether the skin tones are disabled or not, default to \c {false}
+    */
+    property bool skinTonesDisabled: false
+
+
+    /*!
+        \qmlproperty bool searchDisabled
+
+        Controls whether the search is disabled or not, default to \c {false}
+    */
+    property bool searchDisabled: false
+
+
+    /*!
+        \qmlproperty string searchPlaceholder
+
+        Placeholder text for the search, default to \c {'Search'}
+    */
+    property alias searchPlaceholder: search.placeholder
 
     readonly property var colorScheme: theme === 'light' ? light : dark
 
 
     /*!
         \qmlproperty int width
+        \default 350
 
-        Width of the component, default to 350.
+        Width of the component.
     */
     width: 350
 
 
     /*!
         \qmlproperty int height
+        \default 450
 
-        Height of the component, default to 350.
+        Height of the component.
     */
     height: 450
 
@@ -90,22 +162,28 @@ Rectangle {
 
         // Header
         Rectangle {
-            width: parent.width - 20
-            height: 40
+            id: header
 
-            color: 'transparent'
+            readonly property int headerHeight: 40
+
+            width: parent.width - 2 * padding
+            height: searchDisabled ? 0 : headerHeight
+
+            visible: !searchDisabled
+
+            color: transparent
 
             anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: 10
-            anchors.rightMargin: 10
+            anchors.leftMargin: padding
+            anchors.rightMargin: padding
 
             Search {
                 id: search
 
                 color: colorScheme.searchInputBg
 
-                width: parent.width - skinTonePicker.width
+                width: skinTonesDisabled ? parent.width : parent.width - skinTonePicker.width
                 height: parent.height
 
                 borderColor: colorScheme.highlight
@@ -119,10 +197,42 @@ Rectangle {
             SkinTonePicker {
                 id: skinTonePicker
 
+                visible: !skinTonesDisabled
+
+                activeIndex: skinTones[defaultSkinTone]
                 indicatorBorderColor: colorScheme.highlight
 
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
+            }
+        }
+
+        // Navigation
+        Rectangle {
+            readonly property int navigationHeight: 40
+            readonly property int navigationMargin: 15
+
+            width: parent.width - 2 * padding
+            height: navigationHeight
+
+            color: transparent
+
+            anchors.left: parent.left
+            anchors.top: header.bottom
+
+            anchors.margins: padding
+            anchors.topMargin: navigationMargin
+            anchors.bottomMargin: navigationMargin
+
+            Navigation {
+                categories: root.categories
+
+                theme: root.theme
+
+                color: transparent
+                highlightColor: colorScheme.highlight
+
+                anchors.fill: parent
             }
         }
     }

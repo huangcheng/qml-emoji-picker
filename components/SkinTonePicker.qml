@@ -10,7 +10,7 @@ Rectangle {
     readonly property string skinToneMediumDark: '#A86637'
     readonly property string skinToneDark: '#60463A'
 
-    readonly property var colors: [skinToneNeutral, skinToneLight, skinToneMediumLight, skinToneMedium, skinToneMediumDark, skinToneDark].reverse()
+    readonly property var colors: [skinToneNeutral, skinToneLight, skinToneMediumLight, skinToneMedium, skinToneMediumDark, skinToneDark]
 
     readonly property int cellWidth: 20
     readonly property int cellHeight: 20
@@ -21,6 +21,7 @@ Rectangle {
     readonly property int buttonHeight: 16
 
     readonly property int containerWidth: 178
+    readonly property int containerHegiht: 20
 
     property string indicatorBorderColor: 'transparent'
 
@@ -29,7 +30,7 @@ Rectangle {
 
     color: 'transparent'
     width: cellWidth + gap
-    height: 20
+    height: containerHegiht
 
     anchors.topMargin: 10
     anchors.bottomMargin: 10
@@ -48,6 +49,8 @@ Rectangle {
         model: 6
 
         MouseArea {
+            required property int index
+
             width: cellWidth
             height: cellHeight
 
