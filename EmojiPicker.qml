@@ -154,8 +154,8 @@ Rectangle {
 
     Rectangle {
         anchors.topMargin: 15
-        anchors.bottomMargin: 15
 
+        // anchors.bottomMargin: 15
         anchors.fill: parent
 
         color: 'transparent'
@@ -177,6 +177,7 @@ Rectangle {
             anchors.top: parent.top
             anchors.leftMargin: padding
             anchors.rightMargin: padding
+            anchors.horizontalCenter: parent.horizontalCenter
 
             Search {
                 id: search
@@ -209,6 +210,8 @@ Rectangle {
 
         // Navigation
         Rectangle {
+            id: navigation
+
             readonly property int navigationHeight: 40
             readonly property int navigationMargin: 15
 
@@ -223,6 +226,7 @@ Rectangle {
             anchors.margins: padding
             anchors.topMargin: navigationMargin
             anchors.bottomMargin: navigationMargin
+            anchors.horizontalCenter: parent.horizontalCenter
 
             Navigation {
                 categories: root.categories
@@ -234,6 +238,53 @@ Rectangle {
 
                 anchors.fill: parent
             }
+        }
+
+        // Body
+        Rectangle {
+            width: parent.width
+            height: parent.height - header.height - navigation.height
+                    - footer.height - parent.anchors.topMargin
+
+            color: transparent
+
+            anchors.top: navigation.bottom
+            anchors.left: parent.left
+            anchors.leftMargin: padding
+            anchors.rightMargin: padding
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            EmojiView {
+                anchors.fill: parent
+            }
+        }
+
+        // Footer
+        Rectangle {
+            id: footer
+
+            height: 70
+            width: parent.width
+
+            color: transparent
+
+            anchors.left: parent.left
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            Rectangle {
+                width: parent.width
+                height: 1
+
+                color: colorScheme.border
+
+                anchors.left: parent.left
+                anchors.top: parent.top
+            }
+        }
+
+        EmojiDataProvider {
+            id: data
         }
     }
 }
