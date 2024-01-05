@@ -10,7 +10,7 @@ Rectangle {
     readonly property string skinToneMediumDark: '#A86637'
     readonly property string skinToneDark: '#60463A'
 
-    readonly property var colors: [skinToneNeutral, skinToneLight, skinToneMediumLight, skinToneMedium, skinToneMediumDark, skinToneDark]
+    readonly property list<string> colors: [skinToneNeutral, skinToneLight, skinToneMediumLight, skinToneMedium, skinToneMediumDark, skinToneDark]
 
     readonly property int cellWidth: 20
     readonly property int cellHeight: 20

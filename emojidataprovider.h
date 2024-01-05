@@ -23,6 +23,7 @@ public:
 
 public:
     Q_INVOKABLE QList<Emoji> getEmojisByCategory(const QString& category, const QString& keyword = "");
+    Q_INVOKABLE Emoji getEmojiByCategoryAndCodePoint(const QString& category, const QString& codePage);
 
 private:
     Emojis::DocumentType m_document;

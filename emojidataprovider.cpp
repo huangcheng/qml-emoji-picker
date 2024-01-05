@@ -46,6 +46,24 @@ QList<Emoji> EmojiDataProvider::getEmojisByCategory(const QString &category, con
     return list;
 }
 
+Emoji EmojiDataProvider::getEmojiByCategoryAndCodePoint(const QString &category, const QString &codePage)
+{
+    Emoji emoji;
+
+    const auto& emojis = getEmojisByCategory(category);
+
+    auto iter = std::find_if(emojis.begin(), emojis.end(), [&](const auto& item) {
+        return item.u() == codePage;
+    });
+
+    if (iter != emojis.end())
+    {
+        emoji = *iter;
+    }
+
+    return emoji;
+}
+
 QList<Category> EmojiDataProvider::categories() {
     if (m_categories.isEmpty())
     {

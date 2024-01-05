@@ -1,10 +1,12 @@
 import QtQuick
 import QtQuick.Layouts
 
+import im.cheng.EmojiPicker
+
 Rectangle {
-    property var categories: []
+    property list<category> categories: []
     property string theme: 'light'
-    required property string activeCategory
+    property string activeCategory: categories[0].name
 
     required property string highlightColor
 

@@ -87,6 +87,7 @@ MouseArea {
             width: parent.width - magnifier.width - clear.width
 
             font.pixelSize: 14
+            font.weight: 500
 
             anchors.left: magnifier.right
             anchors.verticalCenter: parent.verticalCenter

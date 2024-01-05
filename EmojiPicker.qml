@@ -1,9 +1,12 @@
+import QtQml
 import QtQuick
 import QtQuick.Layouts
 
 import "./themes"
 
 import "./components"
+
+import "./scripts/utils.mjs" as Utils
 
 import im.cheng.EmojiPicker
 
@@ -23,6 +26,8 @@ import im.cheng.EmojiPicker
             skinTonesDisabled: false
             searchPlaceholder: 'Search'
             searchDisabled: false
+
+            onSelectedEmojiChanged: console.log(selectedEmoji)
         }
     \endqml
 */
@@ -40,6 +45,12 @@ Rectangle {
 
     readonly property int padding: 10
     readonly property string transparent: 'transparent'
+
+    readonly property string defaultEmoji: '😊'
+    readonly property string defaultDescription: 'What\'s Your Mood?'
+
+    property string emoji: defaultEmoji
+    property string description: defaultDescription
 
 
     /*!
@@ -93,9 +104,15 @@ Rectangle {
     */
     property alias searchPlaceholder: search.placeholder
 
-    readonly property var colorScheme: theme === 'light' ? light : dark
 
-    property string activeCategory: data.categories[0].name
+    /*!
+        \qmlproperty string selectedEmoji
+
+        Emoji selected.
+    */
+    property alias selectedEmoji: view.selectedEmoji
+
+    readonly property var colorScheme: theme === 'light' ? light : dark
 
 
     /*!
@@ -207,17 +224,26 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
 
             Navigation {
+                id: nav
+
                 categories: data.categories
 
                 theme: root.theme
 
                 color: transparent
                 highlightColor: colorScheme.highlight
-                activeCategory: root.activeCategory
 
                 anchors.fill: parent
 
-                onActiveCategoryChanged: root.activeCategory = activeCategory
+                onActiveCategoryChanged: view.scrollToCategory(activeCategory)
+
+                Connections {
+                    target: view
+
+                    function onCategoryChanged(category) {
+                        nav.activeCategory = category
+                    }
+                }
             }
         }
 
@@ -236,19 +262,45 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
 
             EmojiView {
-                search: search.text
+                id: view
 
-                activeIndex: data.categories.findIndex(function (item) {
-                    return item.name === root.activeCategory
-                })
+                search: search.text
+                textColor: colorScheme.text
+                highlightColor: colorScheme.focus
 
                 anchors.fill: parent
+
+                onEntered: function (category, code) {
+                    const target = data.getEmojiByCategoryAndCodePoint(
+                                     category, code)
+
+                    root.emoji = String.fromCodePoint(parseInt(code, 16))
+                    root.description = Utils.capitalizeFirstLetter(target.n[0])
+
+                    // timer.stop()
+                }
+
+                // onExited: {
+                //     timer.restart()
+                // }
+
+                // Timer {
+                //     id: timer
+                //     interval: 1000
+
+                //     onTriggered: {
+                //         root.emoji = defaultEmoji
+                //         root.description = defaultDescription
+                //     }
+                // }
             }
         }
 
         // Footer
         Rectangle {
             id: footer
+
+            readonly property int borderWidth: 1
 
             height: 70
             width: parent.width
@@ -261,12 +313,46 @@ Rectangle {
 
             Rectangle {
                 width: parent.width
-                height: 1
+                height: footer.borderWidth
 
                 color: colorScheme.border
 
                 anchors.left: parent.left
                 anchors.top: parent.top
+            }
+
+            Rectangle {
+                color: transparent
+
+                height: parent.height - footer.borderWidth
+
+                anchors.left: parent.left
+                anchors.bottom: parent.bottom
+                anchors.leftMargin: padding
+                anchors.rightMargin: padding
+
+                Text {
+                    id: preview
+
+                    font.pixelSize: 45
+                    text: emoji
+
+                    anchors.left: parent.left
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Text {
+                    color: colorScheme.text
+
+                    font.pixelSize: 14
+                    font.weight: 500
+                    text: description
+
+                    anchors.left: preview.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.leftMargin: padding
+                    anchors.rightMargin: padding
+                }
             }
         }
 

@@ -25,6 +25,8 @@ qt_add_qml_module(EmojiPicker
         components/Navigation.qml
         components/EmojiView.qml
 
+        scripts/utils.mjs
+
         EmojiPicker.qml
 
     SOURCES
