@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<!-- EmojiPicker.qml -->
+  <title>EmojiPicker QML Type | EmojiPicker</title>
+  <link rel="stylesheet" type="text/css" href="style/offline.css" />
+</head>
+<body>
+<div class="sidebar">
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#properties">Properties</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<div class="sidebar-content" id="sidebar-content"></div></div>
+<h1 class="title">EmojiPicker QML Type</h1>
+<span class="subtitle"></span>
+<!-- $$$EmojiPicker-brief -->
+<p>A EmojiPicker Component. <a href="#details">More...</a></p>
+<!-- @@@EmojiPicker -->
+<div class="table"><table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> Import Statement:</td><td class="memItemRight bottomAlign"> import  </td></tr></table></div><ul>
+<li><a href="qml-emojipicker-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="properties"></a>
+<h2 id="properties">Properties</h2>
+<ul>
+<li class="fn"><b><b><a href="qml-emojipicker.html#defaultSkinTone-prop">defaultSkinTone</a></b></b> : string</li>
+<li class="fn"><b><b><a href="qml-emojipicker.html#searchDisabled-prop">searchDisabled</a></b></b> : bool</li>
+<li class="fn"><b><b><a href="qml-emojipicker.html#searchPlaceholder-prop">searchPlaceholder</a></b></b> : string</li>
+<li class="fn"><b><b><a href="qml-emojipicker.html#selectedEmoji-prop">selectedEmoji</a></b></b> : string</li>
+<li class="fn"><b><b><a href="qml-emojipicker.html#skinTonesDisabled-prop">skinTonesDisabled</a></b></b> : bool</li>
+<li class="fn"><b><b><a href="qml-emojipicker.html#theme-prop">theme</a></b></b> : string</li>
+</ul>
+<!-- $$$EmojiPicker-description -->
+<a name="details"></a>
+<h2 id="details">Detailed Description</h2>
+<pre class="qml"><span class="type"><a href="qml-emojipicker.html">EmojiPicker</a></span> {
+    <span class="name">width</span>: <span class="number">350</span>
+    <span class="name">height</span>: <span class="number">450</span>
+
+    <span class="name">theme</span>: <span class="string">'light'</span>
+    <span class="name">defaultSkinTone</span>: <span class="string">'neatral'</span>
+    <span class="name">skinTonesDisabled</span>: <span class="number">false</span>
+    <span class="name">searchPlaceholder</span>: <span class="string">'Search'</span>
+    <span class="name">searchDisabled</span>: <span class="number">false</span>
+
+    <span class="name">onSelectedEmojiChanged</span>: <span class="name">console</span>.<span class="name">log</span>(<span class="name">selectedEmoji</span>)
+}</pre>
+<!-- @@@EmojiPicker -->
+<h2>Property Documentation</h2>
+<!-- $$$defaultSkinTone -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="defaultSkinTone-prop">
+<td class="tblQmlPropNode"><p>
+<a name="defaultSkinTone-prop"></a><span class="name">defaultSkinTone</span> : <span class="type">string</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Controls the default skin tone, default to <code>'neutral'</code></p>
+<p>The value can be one of:</p>
+<div class="table"><table class="valuelist"><tr valign="top" class="odd"><th class="tblConst">Constant</th><th class="tbldscr">Description</th></tr>
+<tr><td class="topAlign"><code>'neutral'</code></td><td class="topAlign">✋</td></tr>
+<tr><td class="topAlign"><code>'1f3fb'</code></td><td class="topAlign">✋🏻</td></tr>
+<tr><td class="topAlign"><code>'1f3fc'</code></td><td class="topAlign">✋🏼</td></tr>
+<tr><td class="topAlign"><code>'1f3fd'</code></td><td class="topAlign">✋🏽</td></tr>
+<tr><td class="topAlign"><code>'1f3fe'</code></td><td class="topAlign">✋🏾</td></tr>
+<tr><td class="topAlign"><code>'1f3ff'</code></td><td class="topAlign">✋🏿</td></tr>
+</table></div>
+</div></div><!-- @@@defaultSkinTone -->
+<br/>
+<!-- $$$searchDisabled -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="searchDisabled-prop">
+<td class="tblQmlPropNode"><p>
+<a name="searchDisabled-prop"></a><span class="name">searchDisabled</span> : <span class="type">bool</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Controls whether the search is disabled or not, default to <code>false</code></p>
+</div></div><!-- @@@searchDisabled -->
+<br/>
+<!-- $$$searchPlaceholder -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="searchPlaceholder-prop">
+<td class="tblQmlPropNode"><p>
+<a name="searchPlaceholder-prop"></a><span class="name">searchPlaceholder</span> : <span class="type">string</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Placeholder text for the search, default to <code>'Search'</code></p>
+</div></div><!-- @@@searchPlaceholder -->
+<br/>
+<!-- $$$selectedEmoji -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="selectedEmoji-prop">
+<td class="tblQmlPropNode"><p>
+<a name="selectedEmoji-prop"></a><span class="name">selectedEmoji</span> : <span class="type">string</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Emoji selected.</p>
+</div></div><!-- @@@selectedEmoji -->
+<br/>
+<!-- $$$skinTonesDisabled -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="skinTonesDisabled-prop">
+<td class="tblQmlPropNode"><p>
+<a name="skinTonesDisabled-prop"></a><span class="name">skinTonesDisabled</span> : <span class="type">bool</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Controls whether the skin tones are disabled or not, default to <code>false</code></p>
+</div></div><!-- @@@skinTonesDisabled -->
+<br/>
+<!-- $$$theme -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="theme-prop">
+<td class="tblQmlPropNode"><p>
+<a name="theme-prop"></a><span class="name">theme</span> : <span class="type">string</span></p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Controls the theme of the picker.</p>
+<p>The theme can be one of:</p>
+<div class="table"><table class="valuelist"><tr valign="top" class="odd"><th class="tblConst">Constant</th><th class="tbldscr">Description</th></tr>
+<tr><td class="topAlign"><code>'light'</code></td><td class="topAlign">The default</td></tr>
+<tr><td class="topAlign"><code>'dark'</code></td><td class="topAlign">&nbsp;</td></tr>
+</table></div>
+</div></div><!-- @@@theme -->
+<br/>
+</body>
+</html>
