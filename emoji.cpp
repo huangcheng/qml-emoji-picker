@@ -18,6 +18,30 @@ QString Emoji::a() const
     return m_a;
 }
 
+void Emoji::setN(const QStringList &n)
+{
+    if (m_n != n)
+    {
+        m_n = n;
+    }
+}
+
+void Emoji::setU(const QString &u)
+{
+    if (m_u != u)
+    {
+        m_u = u;
+    }
+}
+
+void Emoji::setA(const QString &a)
+{
+    if (m_a != a)
+    {
+        m_a = a;
+    }
+}
+
 Emoji Emoji::fromJson(const QJsonObject &json)
 {
     QStringList n;

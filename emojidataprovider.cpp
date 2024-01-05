@@ -18,6 +18,34 @@ EmojiDataProvider::EmojiDataProvider(QObject *parent)
     }
 }
 
+QList<Emoji> EmojiDataProvider::getEmojisByCategory(const QString &category, const QString& keyword)
+{
+    auto list = m_document[category];
+
+    if (keyword.size())
+    {
+        decltype(list) result;
+
+        std::copy_if(list.begin(), list.end(), std::back_inserter(result), [&](const auto& item) {
+            auto n = item.n();
+
+            for (const auto& word : n)
+            {
+                if (word.contains(keyword, Qt::CaseInsensitive))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        });
+
+        return result;
+    }
+
+    return list;
+}
+
 QList<Category> EmojiDataProvider::categories() {
     if (m_categories.isEmpty())
     {
@@ -34,4 +62,19 @@ QList<Category> EmojiDataProvider::categories() {
     }
 
     return m_categories;
+}
+
+QString EmojiDataProvider::keyword()
+{
+    return m_keyword;
+}
+
+void EmojiDataProvider::setKeyword(const QString &keyword)
+{
+    if (m_keyword != keyword)
+    {
+        m_keyword = keyword;
+
+        emit keywordChanged();
+    }
 }

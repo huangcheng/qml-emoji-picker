@@ -236,6 +236,12 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
 
             EmojiView {
+                search: search.text
+
+                activeIndex: data.categories.findIndex(function (item) {
+                    return item.name === root.activeCategory
+                })
+
                 anchors.fill: parent
             }
         }

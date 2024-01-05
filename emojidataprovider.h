@@ -15,10 +15,14 @@
 class EmojiDataProvider : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString keyword READ keyword WRITE setKeyword NOTIFY keywordChanged FINAL)
     Q_PROPERTY(QList<Category> categories READ categories CONSTANT FINAL)
     QML_ELEMENT
 public:
     explicit EmojiDataProvider(QObject *parent = nullptr);
+
+public:
+    Q_INVOKABLE QList<Emoji> getEmojisByCategory(const QString& category, const QString& keyword = "");
 
 private:
     Emojis::DocumentType m_document;
@@ -26,9 +30,15 @@ private:
 public:
     QList<Category> categories();
 
+    QString keyword();
+    void setKeyword(const QString& keyword);
+
 private:
     QList<Category> m_categories;
+    QString m_keyword;
 
+signals:
+    void keywordChanged();
 };
 
 #endif // EMOJIDATAPROVIDER_H
