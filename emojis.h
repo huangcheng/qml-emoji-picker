@@ -1,5 +1,5 @@
-#ifndef DOCUMENT_H
-#define DOCUMENT_H
+#ifndef EMOJIS_H
+#define EMOJIS_H
 
 #include <QObject>
 #include <QMap>
@@ -11,21 +11,22 @@
 #include <QStringList>
 
 #include "emoji.h"
+#include "category.h"
 
-class Document
+class Emojis
 {
 public:
     typedef QMap<QString, QList<Emoji>> DocumentType;
 
 public:
-    Document() = default;
+    Emojis() = default;
 
 public:
-    const Document& read(const QJsonObject& json);
+    const Emojis& read(const QJsonObject& json);
     DocumentType get() const;
 
 private:
     DocumentType m_document;
 };
 
-#endif // DOCUMENT_H
+#endif // EMOJIS_H

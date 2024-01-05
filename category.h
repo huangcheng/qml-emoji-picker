@@ -1,28 +1,45 @@
 #ifndef CATEGORY_H
 #define CATEGORY_H
 
+#include <QObject>
 #include <QQmlEngine>
+#include <QString>
+#include <QMap>
 
-#include <QtQml/qqmlregistration.h>
-
-class _Category
+class Category
 {
     Q_GADGET
-public:
-    _Category() = default;
-    _Category(const _Category&) = default;
+    Q_PROPERTY(QString name READ name WRITE setName)
+    Q_PROPERTY(QString description READ description WRITE setDescription)
+    QML_VALUE_TYPE(category)
 
 public:
-    enum Categoriy { SmileysPeople, AnimalsNature, FoodDrink, TravelPlaces, Activities, Objects, Symbols, Flags };
-    Q_ENUM(Categoriy)
+    Category() = default;
+
+public:
+    static constexpr const char* const groups[] = {
+        "smileys_people",
+        "animals_nature",
+        "food_drink",
+        "travel_places",
+        "activities",
+        "objects",
+        "symbols",
+        "flags",
+    };
+
+    static QMap<QString, QString> categories;
+
+public:
+    QString name();
+    void setName(const QString& name);
+
+    QString description();
+    void setDescription(const QString& description);
+
+private:
+    QString m_name;
+    QString m_description;
 };
-
-
-namespace CategoryForeign
-{
-Q_NAMESPACE
-QML_NAMED_ELEMENT(Category)
-QML_FOREIGN_NAMESPACE(_Category)
-}
 
 #endif // CATEGORY_H

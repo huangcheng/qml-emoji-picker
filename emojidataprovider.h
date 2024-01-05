@@ -5,30 +5,30 @@
 #include <QQmlEngine>
 #include <QFile>
 #include <QString>
+#include <QList>
 #include <QByteArray>
 #include <QJsonDocument>
 
-#include "document.h"
+#include "emojis.h"
+#include "category.h"
 
 class EmojiDataProvider : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QStringList categories READ categories)
+    Q_PROPERTY(QList<Category> categories READ categories CONSTANT FINAL)
     QML_ELEMENT
 public:
     explicit EmojiDataProvider(QObject *parent = nullptr);
 
 private:
-    Document::DocumentType m_document;
+    Emojis::DocumentType m_document;
 
 public:
-    QStringList categories();
+    QList<Category> categories();
 
 private:
-    void handleSourceChanged();
+    QList<Category> m_categories;
 
-signals:
-    void sourceChanged();
 };
 
 #endif // EMOJIDATAPROVIDER_H

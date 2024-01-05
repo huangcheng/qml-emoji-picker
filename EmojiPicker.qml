@@ -5,6 +5,8 @@ import "./themes"
 
 import "./components"
 
+import im.cheng.EmojiPicker
+
 
 /*!
     \qmltype EmojiPicker
@@ -35,32 +37,6 @@ Rectangle {
         "1f3fe": 4,
         "1f3ff": 5
     }
-
-    readonly property var categories: [{
-            "category": Category.SmileysPeople,
-            "name": 'Smileys & People'
-        }, {
-            "category": Category.AnimalsNature,
-            "name": "Animals & Nature"
-        }, {
-            "category": Category.FoodDrink,
-            "name": "Food & Drink"
-        }, {
-            "category": Category.TravelPlaces,
-            "name": "Travel & Places"
-        }, {
-            "category": Category.Activities,
-            "name": "Activities"
-        }, {
-            "category": Category.Objects,
-            "name": "Objects"
-        }, {
-            "category": Category.Symbols,
-            "name": "Symbols"
-        }, {
-            "category": Category.Flags,
-            "name": "Flags"
-        }]
 
     readonly property int padding: 10
     readonly property string transparent: 'transparent'
@@ -118,6 +94,8 @@ Rectangle {
     property alias searchPlaceholder: search.placeholder
 
     readonly property var colorScheme: theme === 'light' ? light : dark
+
+    property string activeCategory: data.categories[0].name
 
 
     /*!
@@ -229,14 +207,17 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
 
             Navigation {
-                categories: root.categories
+                categories: data.categories
 
                 theme: root.theme
 
                 color: transparent
                 highlightColor: colorScheme.highlight
+                activeCategory: root.activeCategory
 
                 anchors.fill: parent
+
+                onActiveCategoryChanged: root.activeCategory = activeCategory
             }
         }
 

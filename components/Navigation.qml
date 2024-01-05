@@ -4,7 +4,7 @@ import QtQuick.Layouts
 Rectangle {
     property var categories: []
     property string theme: 'light'
-    property int activeCategory: 0
+    required property string activeCategory
 
     required property string highlightColor
 
@@ -30,7 +30,7 @@ Rectangle {
                 required property int index
                 required property var modelData
 
-                readonly property int category: modelData.category
+                readonly property string category: modelData.name
 
                 width: buttonSize
                 height: buttonSize
@@ -55,7 +55,7 @@ Rectangle {
                     sourceSize: Qt.size(originalImageWidth * scaleFactor,
                                         originalImageHeight * scaleFactor)
 
-                    readonly property bool isActive: index === activeCategory
+                    readonly property bool isActive: category === activeCategory
 
                     readonly property int offsetY: parent.containsMouse
                                                    || isActive ? (isDark ? (darkOffset + highlightOffset) * buttonSize : highlightOffset * buttonSize) : (isDark ? darkOffset * buttonSize : 0)

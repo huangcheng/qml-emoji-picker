@@ -1,6 +1,6 @@
 #include "emoji.h"
 
-Emoji::Emoji(const QStringList &n, const QString &u, const QString &a) : m_n(n), m_u(u), m_a(a)
+Emoji::Emoji(const QStringList &n, const QString &u, const QString &a) : m_n{n}, m_u{u}, m_a{a}
 {}
 
 QStringList Emoji::n() const

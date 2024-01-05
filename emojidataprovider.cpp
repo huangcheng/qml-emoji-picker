@@ -14,10 +14,24 @@ EmojiDataProvider::EmojiDataProvider(QObject *parent)
     } else {
         QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
 
-        m_document = Document().read(doc.object()).get();
+        m_document = Emojis().read(doc.object()).get();
     }
 }
 
-QStringList EmojiDataProvider::categories() {
-    return m_document.keys();
+QList<Category> EmojiDataProvider::categories() {
+    if (m_categories.isEmpty())
+    {
+        for (auto& key : Category::groups)
+        {
+            Category category;
+
+            category.setName(key);
+
+            category.setDescription(Category::categories[key]);
+
+            m_categories.append(category);
+        }
+    }
+
+    return m_categories;
 }
