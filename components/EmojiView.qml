@@ -22,6 +22,7 @@ ScrollView {
                                                dataProvider.categories[0].name)[0].u,
                                            16))
 
+    signal emojiClicked(string emoji)
     signal categoryChanged(string category)
     signal entered(string category, string codePoint)
     signal exited
@@ -120,6 +121,8 @@ ScrollView {
 
                                     function onClicked() {
                                         selectedEmoji = emoji
+
+                                        root.emojiClicked(emoji)
                                     }
                                 }
                             }

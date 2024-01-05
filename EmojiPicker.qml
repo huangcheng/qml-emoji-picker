@@ -27,7 +27,9 @@ import im.cheng.EmojiPicker
             searchPlaceholder: 'Search'
             searchDisabled: false
 
-            onSelectedEmojiChanged: console.log(selectedEmoji)
+            onEmojiClicked: function (emoji) {
+                console.log(emoji)
+            }
         }
     \endqml
 */
@@ -113,6 +115,14 @@ Rectangle {
     property alias selectedEmoji: view.selectedEmoji
 
     readonly property var colorScheme: theme === 'light' ? light : dark
+
+
+    /*!
+        \qmlsignal EmojiPicker::emojiClicked(string emoji)
+
+        Signal that is called when an emoji is clicked. The function receives the emoji  as a parameter.
+    */
+    signal emojiClicked(string emoji)
 
 
     /*!
@@ -358,6 +368,14 @@ Rectangle {
 
         EmojiDataProvider {
             id: data
+        }
+    }
+
+    Connections {
+        target: view
+
+        function onEmojiClicked(emoji) {
+            emojiClicked(emoji)
         }
     }
 }

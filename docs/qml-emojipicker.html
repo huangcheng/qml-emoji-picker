@@ -12,6 +12,7 @@
 <h3><a name="toc">Contents</a></h3>
 <ul>
 <li class="level1"><a href="#properties">Properties</a></li>
+<li class="level1"><a href="#signals">Signals</a></li>
 <li class="level1"><a href="#details">Detailed Description</a></li>
 </ul>
 </div>
@@ -35,6 +36,11 @@
 <li class="fn"><b><b><a href="qml-emojipicker.html#skinTonesDisabled-prop">skinTonesDisabled</a></b></b> : bool</li>
 <li class="fn"><b><b><a href="qml-emojipicker.html#theme-prop">theme</a></b></b> : string</li>
 </ul>
+<a name="signals"></a>
+<h2 id="signals">Signals</h2>
+<ul>
+<li class="fn"><b><b><a href="qml-emojipicker.html#emojiClicked-signal">emojiClicked</a></b></b>(string <i>emoji</i>)</li>
+</ul>
 <!-- $$$EmojiPicker-description -->
 <a name="details"></a>
 <h2 id="details">Detailed Description</h2>
@@ -48,7 +54,9 @@
     <span class="name">searchPlaceholder</span>: <span class="string">'Search'</span>
     <span class="name">searchDisabled</span>: <span class="number">false</span>
 
-    <span class="name">onSelectedEmojiChanged</span>: <span class="name">console</span>.<span class="name">log</span>(<span class="name">selectedEmoji</span>)
+    <span class="name">onEmojiClicked</span>: <span class="keyword">function </span>(emoji) {
+        <span class="name">console</span>.<span class="name">log</span>(<span class="name">emoji</span>)
+    }
 }</pre>
 <!-- @@@EmojiPicker -->
 <h2>Property Documentation</h2>
@@ -125,6 +133,18 @@
 <tr><td class="topAlign"><code>'dark'</code></td><td class="topAlign">&nbsp;</td></tr>
 </table></div>
 </div></div><!-- @@@theme -->
+<br/>
+<h2>Signal Documentation</h2>
+<!-- $$$emojiClicked[overload1]$$$emojiClickedstring -->
+<div class="qmlitem"><div class="qmlproto">
+<div class="table"><table class="qmlname">
+<tr valign="top" class="odd" id="emojiClicked-signal">
+<td class="tblQmlFuncNode"><p>
+<a name="emojiClicked-signal"></a><span class="name">emojiClicked</span>(<span class="type">string</span> <i>emoji</i>)</p></td></tr>
+</table></div></div>
+<div class="qmldoc"><p>Signal that is called when an emoji is clicked. The function receives the emoji as a parameter.</p>
+<p><b>Note: </b>The corresponding handler is <code>onEmojiClicked</code>.</p>
+</div></div><!-- @@@emojiClicked -->
 <br/>
 </body>
 </html>
