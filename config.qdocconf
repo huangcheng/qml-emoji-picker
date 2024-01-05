@@ -6,14 +6,14 @@ imagedirs = .
 
 HTML.templatedir = .
 
-HTML.stylesheets = docs/style/offline.css
+HTML.stylesheets = assets/style/offline.css
 
 depends += \
     qtquick
 
 sources.fileextensions = "*.qml"
 
-outputdir = ./public/
+outputdir = ./docs/
 
 outputformats = HTML
 
