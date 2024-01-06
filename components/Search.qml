@@ -12,11 +12,9 @@ MouseArea {
     property string placeholder: 'Search'
 
     Behavior on width {
-        PropertyAnimation {
-            property: 'width'
-            duration: 200
-
-            easing.type: Easing.Linear
+        SpringAnimation {
+            spring: 2
+            damping: 0.2
         }
     }
 

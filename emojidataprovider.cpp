@@ -82,7 +82,7 @@ QList<Category> EmojiDataProvider::categories() {
     return m_categories;
 }
 
-QString EmojiDataProvider::keyword()
+QString EmojiDataProvider::keyword() const
 {
     return m_keyword;
 }

@@ -31,7 +31,7 @@ private:
 public:
     QList<Category> categories();
 
-    QString keyword();
+    QString keyword() const;
     void setKeyword(const QString& keyword);
 
 private:

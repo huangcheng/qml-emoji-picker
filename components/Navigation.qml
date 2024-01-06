@@ -4,9 +4,12 @@ import QtQuick.Layouts
 import im.cheng.EmojiPicker
 
 Rectangle {
+    id: root
+
     property list<category> categories: []
     property string theme: 'light'
     property string activeCategory: categories[0].name
+    property bool disabled: false
 
     required property string highlightColor
 
@@ -37,9 +40,13 @@ Rectangle {
                 width: buttonSize
                 height: buttonSize
 
-                hoverEnabled: true
+                hoverEnabled: !disabled
 
-                onClicked: activeCategory = category
+                onClicked: {
+                    if (!disabled) {
+                        activeCategory = category
+                    }
+                }
 
                 Rectangle {
                     radius: 200
@@ -47,7 +54,7 @@ Rectangle {
                     border.width: 1
                     border.color: highlightColor
 
-                    visible: containsPress
+                    visible: !disabled && containsPress
 
                     anchors.fill: parent
                 }
@@ -57,10 +64,11 @@ Rectangle {
                     sourceSize: Qt.size(originalImageWidth * scaleFactor,
                                         originalImageHeight * scaleFactor)
 
-                    readonly property bool isActive: category === activeCategory
+                    readonly property bool isActive: (category === activeCategory)
 
-                    readonly property int offsetY: parent.containsMouse
-                                                   || isActive ? (isDark ? (darkOffset + highlightOffset) * buttonSize : highlightOffset * buttonSize) : (isDark ? darkOffset * buttonSize : 0)
+                    readonly property int offsetY: (parent.containsMouse
+                                                    || isActive)
+                                                   && !disabled ? (isDark ? (darkOffset + highlightOffset) * buttonSize : highlightOffset * buttonSize) : (isDark ? darkOffset * buttonSize : 0)
 
                     sourceClipRect: Qt.rect(
                                         (index + imageSkip - 1) * buttonSize,

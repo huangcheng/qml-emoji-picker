@@ -12,6 +12,7 @@ ScrollView {
 
     required property string highlightColor
     required property string textColor
+    required property string skinTone
 
     property string search: ''
     property int previousIndex: 0
@@ -30,6 +31,23 @@ ScrollView {
     clip: true
 
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+
+    function parseEmoji(emoji, skinTone) {
+        let unified = emoji.u
+
+        if (emoji.v.length > 0 && skinTone !== 'neutral') {
+            unified = emoji.v.find(function (variation) {
+                return variation.includes(skinTone)
+            })
+        }
+
+        if (/-/.test(unified)) {
+            return unified.split('-').map(hex => String.fromCodePoint(
+                                              parseInt(hex, 16))).join('')
+        }
+
+        return String.fromCodePoint(parseInt(unified, 16))
+    }
 
     ListView {
         id: list
@@ -82,10 +100,11 @@ ScrollView {
                             id: button
 
                             required property var modelData
-                            readonly property string u: modelData.u
 
-                            readonly property string emoji: String.fromCodePoint(
-                                                                parseInt(u, 16))
+                            readonly property string u: modelData.u
+                            readonly property string emoji: parseEmoji(
+                                                                modelData,
+                                                                skinTone)
 
                             width: cellSize
                             height: cellSize

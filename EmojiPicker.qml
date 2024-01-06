@@ -36,24 +36,6 @@ import im.cheng.EmojiPicker
 Rectangle {
     id: root
 
-    readonly property var skinTones: {
-        "neutral": 0,
-        "1f3fb": 1,
-        "1f3fc": 2,
-        "1f3fd": 3,
-        "1f3fe": 4,
-        "1f3ff": 5
-    }
-
-    readonly property int padding: 10
-    readonly property string transparent: 'transparent'
-
-    readonly property string defaultEmoji: '😊'
-    readonly property string defaultDescription: 'What\'s Your Mood?'
-
-    property string emoji: defaultEmoji
-    property string description: defaultDescription
-
 
     /*!
         \qmlproperty string theme
@@ -112,9 +94,15 @@ Rectangle {
 
         Emoji selected.
     */
-    property alias selectedEmoji: view.selectedEmoji
+    property alias selectedEmoji: emojiView.selectedEmoji
 
-    readonly property var colorScheme: theme === 'light' ? light : dark
+
+    /*!
+        \qmlproperty bool showPreview
+
+        Show the emoji preview panel or not.
+    */
+    property bool showPreview: true
 
 
     /*!
@@ -123,6 +111,26 @@ Rectangle {
         Signal that is called when an emoji is clicked. The function receives the emoji  as a parameter.
     */
     signal emojiClicked(string emoji)
+
+    readonly property var colorScheme: theme === 'light' ? light : dark
+
+    readonly property var skinTones: {
+        "neutral": 0,
+        "1f3fb": 1,
+        "1f3fc": 2,
+        "1f3fd": 3,
+        "1f3fe": 4,
+        "1f3ff": 5
+    }
+
+    readonly property int padding: 10
+    readonly property string transparent: 'transparent'
+
+    readonly property string defaultEmoji: '😊'
+    readonly property string defaultDescription: 'What\'s Your Mood?'
+
+    property string emoji: defaultEmoji
+    property string description: defaultDescription
 
 
     /*!
@@ -242,13 +250,15 @@ Rectangle {
 
                 color: transparent
                 highlightColor: colorScheme.highlight
+                disabled: search.text.length > 0
 
                 anchors.fill: parent
 
-                onActiveCategoryChanged: view.scrollToCategory(activeCategory)
+                onActiveCategoryChanged: emojiView.scrollToCategory(
+                                             activeCategory)
 
                 Connections {
-                    target: view
+                    target: emojiView
 
                     function onCategoryChanged(category) {
                         nav.activeCategory = category
@@ -272,8 +282,9 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
 
             EmojiView {
-                id: view
+                id: emojiView
 
+                skinTone: defaultSkinTone
                 search: search.text
                 textColor: colorScheme.text
                 highlightColor: colorScheme.focus
@@ -284,7 +295,7 @@ Rectangle {
                     const target = data.getEmojiByCategoryAndCodePoint(
                                      category, code)
 
-                    root.emoji = String.fromCodePoint(parseInt(code, 16))
+                    root.emoji = emojiView.parseEmoji(target, skinTone)
                     root.description = Utils.capitalizeFirstLetter(target.n[0])
 
                     // timer.stop()
@@ -303,6 +314,19 @@ Rectangle {
                 //         root.description = defaultDescription
                 //     }
                 // }
+                Connections {
+                    target: skinTonePicker
+
+                    function onActiveIndexChanged() {
+                        const targetSkinTone = Object.keys(skinTones).find(
+                                                 function (key) {
+                                                     return skinTones[key]
+                                                             === skinTonePicker.activeIndex
+                                                 })
+
+                        emojiView.skinTone = targetSkinTone
+                    }
+                }
             }
         }
 
@@ -311,8 +335,9 @@ Rectangle {
             id: footer
 
             readonly property int borderWidth: 1
+            readonly property int footerHeight: 70
 
-            height: 70
+            height: showPreview ? footerHeight : 0
             width: parent.width
 
             color: transparent
@@ -321,11 +346,18 @@ Rectangle {
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
 
+            Behavior on height {
+                NumberAnimation {
+                    duration: 200
+                }
+            }
+
             Rectangle {
                 width: parent.width
                 height: footer.borderWidth
 
                 color: colorScheme.border
+                visible: showPreview
 
                 anchors.left: parent.left
                 anchors.top: parent.top
@@ -335,6 +367,7 @@ Rectangle {
                 color: transparent
 
                 height: parent.height - footer.borderWidth
+                visible: showPreview
 
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
@@ -372,7 +405,7 @@ Rectangle {
     }
 
     Connections {
-        target: view
+        target: emojiView
 
         function onEmojiClicked(emoji) {
             emojiClicked(emoji)
