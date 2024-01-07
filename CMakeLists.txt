@@ -2,10 +2,8 @@ project(EmojiPicker)
 
 CMAKE_MINIMUM_REQUIRED(VERSION 3.5)
 
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
-
-
 
 if(POLICY CMP0071)
   cmake_policy(SET CMP0071 NEW)
@@ -30,7 +28,6 @@ qt_add_qml_module(EmojiPicker
         EmojiPicker.qml
 
     SOURCES
-
         emoji.h
         emoji.cpp
         emojis.h

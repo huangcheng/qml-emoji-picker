@@ -8,31 +8,20 @@ QMap<QString, QString> Category::categories = {
     {"activities", "Activities"},
     {"objects", "Objects"},
     {"symbols", "Symbols"},
-    {"flags", "Flags"}
-};
+    {"flags", "Flags"}};
 
-QString Category::name()
-{
-    return m_name;
+QString Category::name() { return m_name; }
+
+void Category::setName(const QString &name) {
+  if (m_name != name) {
+    m_name = name;
+  }
 }
 
-void Category::setName(const QString &name)
-{
-    if (m_name != name)
-    {
-        m_name = name;
-    }
-}
+QString Category::description() { return m_description; }
 
-QString Category::description()
-{
-    return m_description;
-}
-
-void Category::setDescription(const QString &description)
-{
-    if (m_description != description)
-    {
-        m_description = description;
-    }
+void Category::setDescription(const QString &description) {
+  if (m_description != description) {
+    m_description = description;
+  }
 }

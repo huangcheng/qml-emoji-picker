@@ -1,32 +1,31 @@
 #ifndef EMOJIS_H
 #define EMOJIS_H
 
-#include <QObject>
-#include <QMap>
-#include <QString>
-#include <QList>
-#include <QJsonObject>
 #include <QJsonArray>
+#include <QJsonObject>
 #include <QJsonValue>
+#include <QList>
+#include <QMap>
+#include <QObject>
+#include <QString>
 #include <QStringList>
 
-#include "emoji.h"
 #include "category.h"
+#include "emoji.h"
 
-class Emojis
-{
+class Emojis {
 public:
-    typedef QMap<QString, QList<Emoji>> DocumentType;
-
-public:
-    Emojis() = default;
+  typedef QMap<QString, QList<Emoji>> DocumentType;
 
 public:
-    const Emojis& read(const QJsonObject& json);
-    DocumentType get() const;
+  Emojis() = default;
+
+public:
+  const Emojis &read(const QJsonObject &json);
+  DocumentType  get() const;
 
 private:
-    DocumentType m_document;
+  DocumentType m_document;
 };
 
 #endif // EMOJIS_H
