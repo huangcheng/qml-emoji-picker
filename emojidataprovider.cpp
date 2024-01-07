@@ -12,6 +12,8 @@ EmojiDataProvider::EmojiDataProvider(QObject *parent) : QObject{parent} {
     QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
 
     m_document = Emojis().read(doc.object()).get();
+
+    file.close();
   }
 }
 
