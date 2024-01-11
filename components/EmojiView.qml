@@ -4,6 +4,8 @@ import QtQuick.Controls
 
 import im.cheng.EmojiPicker
 
+import "../scripts/utils.mjs" as Utils
+
 ScrollView {
     id: root
 
@@ -31,23 +33,6 @@ ScrollView {
     clip: true
 
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-
-    function parseEmoji(emoji, skinTone) {
-        let unified = emoji.u
-
-        if (emoji.v.length > 0 && skinTone !== 'neutral') {
-            unified = emoji.v.find(function (variation) {
-                return variation.includes(skinTone)
-            })
-        }
-
-        if (/-/.test(unified)) {
-            return unified.split('-').map(hex => String.fromCodePoint(
-                                              parseInt(hex, 16))).join('')
-        }
-
-        return String.fromCodePoint(parseInt(unified, 16))
-    }
 
     ListView {
         id: list
@@ -102,7 +87,7 @@ ScrollView {
                             required property var modelData
 
                             readonly property string u: modelData.u
-                            readonly property string emoji: parseEmoji(
+                            readonly property string emoji: Utils.parseEmoji(
                                                                 modelData,
                                                                 skinTone)
 

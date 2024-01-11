@@ -295,7 +295,7 @@ Rectangle {
                     const target = data.getEmojiByCategoryAndCodePoint(
                                      category, code)
 
-                    root.emoji = emojiView.parseEmoji(target, skinTone)
+                    root.emoji = Utils.parseEmoji(target, skinTone)
                     root.description = Utils.capitalizeFirstLetter(target.n[0])
 
                     // timer.stop()
